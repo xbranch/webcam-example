@@ -12,7 +12,7 @@
   </div>
 
   <div class="row mb-5">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center" *ngIf="hasCameras$|async;else noCamerasAlert">
       <ng-container *ngFor="let camera of cameras$|async">
         <button class="btn btn-primary mr-2 mb-2" [class.disabled]="(current$|async)===camera.id"
                 (click)="start(camera.id)">
@@ -26,11 +26,18 @@
         Take a snap
       </button>
     </div>
+    <ng-template #noCamerasAlert>
+      <div class="col-12">
+        <div class="alert alert-warning">
+          No cameras available. Please plug-in your camera.
+        </div>
+      </div>
+    </ng-template>
   </div>
 
   <canvas class="d-none" #capture></canvas>
 
-  <div class="row mb-5">
+  <div class="row mb-5" *ngIf="hasCameras$|async">
     <div class="col-12">
       <div class="card">
         <div class="card-body text-center">

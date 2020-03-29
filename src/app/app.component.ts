@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Camera, CameraUtilService } from './core/util/camera-util.service';
 
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   cameras$: Observable<Camera[]> = this.cameras.asObservable();
   current$: Observable<string> = this.current.asObservable();
+
+  hasCameras$: Observable<boolean> = this.cameras$.pipe(map(cameras => cameras && cameras.length > 0));
 
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('capture') capture: ElementRef<HTMLCanvasElement>;
