@@ -14,15 +14,14 @@
   <div class="row mb-5">
     <div class="col-12 text-center" *ngIf="hasCameras$|async;else noCamerasAlert">
       <ng-container *ngFor="let camera of cameras$|async">
-        <button class="btn btn-primary mr-2 mb-2" [class.disabled]="(current$|async)===camera.id"
-                (click)="start(camera.id)">
+        <button class="btn btn-primary mr-2 mb-2" [disabled]="(current$|async)===camera.id" (click)="start(camera.id)">
           START {{camera.title}}
         </button>
       </ng-container>
-      <button class="btn btn-danger mr-2 mb-2" [class.disabled]="!(current$|async)" (click)="stop()">
+      <button class="btn btn-danger mr-2 mb-2" [disabled]="stopped$|async" (click)="stop()">
         Turn off
       </button>
-      <button class="btn btn-secondary mb-2" [class.disabled]="!(current$|async)" (click)="snap()">
+      <button class="btn btn-secondary mb-2" [disabled]="stopped$|async" (click)="snap()">
         Take a snap
       </button>
     </div>

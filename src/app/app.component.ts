@@ -20,6 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
   current$: Observable<string> = this.current.asObservable();
 
   hasCameras$: Observable<boolean> = this.cameras$.pipe(map(cameras => cameras && cameras.length > 0));
+  streaming$: Observable<boolean> = this.current$.pipe(map(current => !!current));
+  stopped$: Observable<boolean> = this.streaming$.pipe(map(streaming => !streaming));
 
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('capture') capture: ElementRef<HTMLCanvasElement>;
